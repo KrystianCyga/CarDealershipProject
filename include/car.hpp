@@ -52,7 +52,7 @@ public:
     bool IsSold() const { return _isSold; }
 
     // Setters
-    void setSold(bool sold) { _isSold = sold; }
+    void SetSold(bool sold) { _isSold = sold; }
 
     // Other methods
 
@@ -72,5 +72,5 @@ public:
     *
     * Includes ID, model, year, initial price, current price, and sale status.
     */
-    void ShowCarInfo() const;
+    void ShowCarInfo(std::chrono::system_clock::time_point currentTime) const;
 };
