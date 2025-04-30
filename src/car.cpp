@@ -24,6 +24,7 @@ double Car::CalculateCurrentPrice(std::chrono::system_clock::time_point currentT
 
 void Car::ShowCarInfo(std::chrono::system_clock::time_point currentTime) const{
 
+    std::cout<<"ID: "<<_id<<"\n";
     std::cout<<"Model: "<<_model<<"\n";
     std::cout<<"Register Year: "<<_registerYear<<"\n";
     std::cout<<"Actual Price: "<<CalculateCurrentPrice(currentTime)<<"\n";
@@ -32,6 +33,7 @@ void Car::ShowCarInfo(std::chrono::system_clock::time_point currentTime) const{
 
 void Car::ShowCarInfo() const{
 
+    std::cout<<"ID: "<<_id<<"\n";
     std::cout<<"Model: "<<_model<<"\n";
     std::cout<<"Register Year: "<<_registerYear<<"\n";
     std::cout<<"Sell Price: "<<_initialPrice<<"\n";

@@ -41,14 +41,20 @@ bool CarManager::SellCar(unsigned int id)
 
         return true;
     }
+    else
+    {
+        std::cout << "Wrong Car ID\n";
+    }
 
     return false;
 }
 
-void CarManager::LoadFromFile(const std::string &filename) {
+void CarManager::LoadFromFile(const std::string &filename)
+{
     std::ifstream inFile(filename);
 
-    if (!inFile.is_open()) {
+    if (!inFile.is_open())
+    {
         std::cout << "Warning: Could not open file for loading: " << filename << "." << std::endl;
         _cars.clear();
         _nextCarId = 1;
@@ -61,7 +67,8 @@ void CarManager::LoadFromFile(const std::string &filename) {
     std::string line;
     unsigned int maxId = 0;
 
-    while (std::getline(inFile, line)) {
+    while (std::getline(inFile, line))
+    {
         std::stringstream ss(line);
         std::string segment;
 
@@ -72,70 +79,89 @@ void CarManager::LoadFromFile(const std::string &filename) {
         bool isSold;
         double salePrice = 0.0;
 
-        try {
-            if (!std::getline(ss, segment, ';')) throw std::runtime_error("Missing ID");
+        try
+        {
+            if (!std::getline(ss, segment, ';'))
+                throw std::runtime_error("Missing ID");
             id = std::stoul(segment);
-            if (!std::getline(ss, segment, ';')) throw std::runtime_error("Missing Model");
+            if (!std::getline(ss, segment, ';'))
+                throw std::runtime_error("Missing Model");
             model = segment;
-            if (!std::getline(ss, segment, ';')) throw std::runtime_error("Missing Register Year");
+            if (!std::getline(ss, segment, ';'))
+                throw std::runtime_error("Missing Register Year");
             registerYear = std::stoul(segment);
-            if (!std::getline(ss, segment, ';')) throw std::runtime_error("Missing Initial Price");
+            if (!std::getline(ss, segment, ';'))
+                throw std::runtime_error("Missing Initial Price");
             initialPrice = std::stod(segment);
-            if (!std::getline(ss, segment, ';')) throw std::runtime_error("Missing IsSold status");
+            if (!std::getline(ss, segment, ';'))
+                throw std::runtime_error("Missing IsSold status");
             isSold = (std::stoi(segment) != 0);
-             if (std::getline(ss, segment) && !segment.empty()) { 
-                 try { salePrice = std::stod(segment); }
-                 catch (const std::exception& e) {  }
-             }
-
+            if (std::getline(ss, segment) && !segment.empty())
+            {
+                try
+                {
+                    salePrice = std::stod(segment);
+                }
+                catch (const std::exception &e)
+                {
+                }
+            }
 
             auto car_ptr = std::make_unique<Car>(id, model, registerYear, initialPrice);
 
-            
-            if (isSold) {
-                 car_ptr->SetSold();
-                 car_ptr->SetSalePrice(salePrice);
+            if (isSold)
+            {
+                car_ptr->SetSold();
+                car_ptr->SetSalePrice(salePrice);
             }
 
             _cars.push_back(std::move(car_ptr));
 
-            if (id >= maxId) {
+            if (id >= maxId)
+            {
                 maxId = id;
             }
-
-        } catch (const std::exception& e) {
+        }
+        catch (const std::exception &e)
+        {
             std::cerr << "Error parsing line: '" << line << "'. Error: " << e.what() << ". Skipping line." << std::endl;
         }
     }
 
-    if (maxId > 0) {
+    if (maxId > 0)
+    {
         _nextCarId = maxId + 1;
-    } else {
+    }
+    else
+    {
         _nextCarId = 1;
     }
 
     std::cout << "Cars successfully loaded from " << filename << ". Total cars: " << _cars.size() << std::endl;
 }
 
-void CarManager::SaveToFile(const std::string &filename) const {
+void CarManager::SaveToFile(const std::string &filename) const
+{
     std::ofstream outFile(filename);
 
-    if (!outFile.is_open()) {
+    if (!outFile.is_open())
+    {
         std::cerr << "Error: Could not open file for saving: " << filename << std::endl;
         return;
     }
 
     outFile << std::fixed << std::setprecision(2);
 
-    for (const auto& car_ptr : _cars) {
-        const Car* car = car_ptr.get();
+    for (const auto &car_ptr : _cars)
+    {
+        const Car *car = car_ptr.get();
 
         outFile << car->GetId() << ";";
         outFile << car->GetModel() << ";";
         outFile << car->GetRegisterYear() << ";";
         outFile << car->GetInitialPrice() << ";";
         outFile << car->IsSold() << ";";
-        outFile << car->GetSalePrice() << "\n"; 
+        outFile << car->GetSalePrice() << "\n";
     }
 
     std::cout << "Inventory successfully saved to " << filename << std::endl;
@@ -196,22 +222,25 @@ void CarManager::ShowDailyReport() const
     std::cout << "----------------------------------\n";
 }
 
-bool CarManager::IsCarSold(unsigned int id) const {
-    auto it = std::find_if(_cars.begin(), _cars.end(), [&](const std::unique_ptr<Car>& car_ptr){
-        return car_ptr->GetId() == id;
-    });
+bool CarManager::IsCarSold(unsigned int id) const
+{
+    auto it = std::find_if(_cars.begin(), _cars.end(), [&](const std::unique_ptr<Car> &car_ptr)
+                           { return car_ptr->GetId() == id; });
 
-    if (it != _cars.end()) {
+    if (it != _cars.end())
+    {
         return (*it)->IsSold();
     }
 
-    return false; 
+    return false;
 }
 
-int CarManager::GetCarCount() const{
+int CarManager::GetCarCount() const
+{
     return _cars.size();
 }
 
-int CarManager::GetNextCarId() const{
+int CarManager::GetNextCarId() const
+{
     return _nextCarId;
 }
