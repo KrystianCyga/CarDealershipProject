@@ -29,3 +29,19 @@ void Car::ShowCarInfo(std::chrono::system_clock::time_point currentTime) const{
     std::cout<<"Actual Price: "<<CalculateCurrentPrice(currentTime)<<"\n";
     std::cout << "Status: " << (_isSold ? "Sold" : "Available") << "\n";
 }
+
+void Car::ShowCarInfo() const{
+
+    std::cout<<"Model: "<<_model<<"\n";
+    std::cout<<"Register Year: "<<_registerYear<<"\n";
+    std::cout<<"Sell Price: "<<_initialPrice<<"\n";
+    std::cout << "Status: " << (_isSold ? "Sold" : "Available") << "\n";
+}
+
+void Car::SetSold(){
+    _isSold=true;
+}
+
+void Car::SetSalePrice(double price){
+    _salePrice = price;
+}

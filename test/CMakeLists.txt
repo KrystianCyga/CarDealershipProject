@@ -1,14 +1,17 @@
 
-add_executable(car_tests
-    main_test.cpp
-    test_car.cpp
-    ../src/car.cpp  
+
+add_executable(runTests 
+    main_test.cpp           
+    test_car.cpp            
+    car_manager_test.cpp    
+    ../src/Car.cpp          
+    ../src/CarManager.cpp   
 )
 
 
-target_include_directories(car_tests PRIVATE
-    ../include
-    .
+target_include_directories(runTests PRIVATE
+    ../include 
+    .         
 )
 
-add_test(NAME CarTests COMMAND car_tests)
+add_test(NAME UnitTests COMMAND runTests) 

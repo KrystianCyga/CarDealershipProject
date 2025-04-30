@@ -21,6 +21,7 @@ private:
     double _initialPrice;
     unsigned int _id;
     bool _isSold;
+    double _salePrice;
 
 public:
     // Constructor
@@ -38,7 +39,7 @@ public:
     * @param initialPrice The price we first listed the car at.
     */
     Car(unsigned int id, const std::string &model, unsigned int year, double initialPrice)
-        : _id(id), _model(model), _registerYear(year), _initialPrice(initialPrice), _isSold(false)
+        : _id(id), _model(model), _registerYear(year), _initialPrice(initialPrice), _isSold(false), _salePrice(0)
     {
         _addTime = std::chrono::system_clock::now();
     }
@@ -48,11 +49,15 @@ public:
     const std::string &GetModel() const { return _model; }
     unsigned int GetRegisterYear() const { return _registerYear; }
     double GetInitialPrice() const { return _initialPrice; }
+    double GetSalePrice() const { return _salePrice; }
     const std::chrono::system_clock::time_point &GetAddTime() const { return _addTime; }
     bool IsSold() const { return _isSold; }
 
+
     // Setters
-    void SetSold(bool sold) { _isSold = sold; }
+    void SetSold();
+    void SetSalePrice(double price);
+
 
     // Other methods
 
@@ -73,4 +78,11 @@ public:
     * Includes ID, model, year, initial price, current price, and sale status.
     */
     void ShowCarInfo(std::chrono::system_clock::time_point currentTime) const;
+
+    /**
+    * @brief Displays detailed information about the car to the console.
+    *
+    * Includes ID, model, year, initial price and sale status.
+    */
+    void ShowCarInfo() const;
 };
