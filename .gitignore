@@ -1,0 +1,14 @@
+/build/
+build/
+
+.vs/
+.vscode/
+
+Debug/
+Release/
+
+Testing/
+/Testing/
+
+html/
+latex/
