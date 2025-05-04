@@ -4,7 +4,7 @@ add_executable(runTests
     main_test.cpp           
     test_car.cpp            
     car_manager_test.cpp    
-    ../src/Car.cpp          
+    ../src/car.cpp          
     ../src/CarManager.cpp   
 )
 
