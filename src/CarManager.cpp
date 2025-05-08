@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <stdexcept>
 #include <sstream>
+#include <algorithm>
 
 void CarManager::AddCar(const std::string &model, unsigned int registerYear, double initialPrice)
 {
